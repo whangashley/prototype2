@@ -119,6 +119,7 @@ MonoBehaviour:
   matzoHit: 0
   alphaZero: 0
   matzoBallAnimator: {fileID: 462079099950826137}
+  killTime: 1.5
 --- !u!50 &1003335183642127175
 Rigidbody2D:
   serializedVersion: 4

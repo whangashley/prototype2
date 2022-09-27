@@ -13,7 +13,7 @@ public class spawner2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        spawnerScript = objSpawner. GetComponent<spawner>();
+        spawnerScript = objSpawner.GetComponent<spawner>();
 
         SpawnEnemy2();
         enemy2Dead = false;
@@ -23,8 +23,14 @@ public class spawner2 : MonoBehaviour
     void Update()
     {
         if (enemy2Dead == true) {
-            SpawnEnemy2();
-            spawnerScript.totalEnemies++;
+            if (spawnerScript.totalEnemies <= 9) {
+                SpawnEnemy2();
+                spawnerScript.totalEnemies++;
+                Debug.Log("enemies" + spawnerScript.totalEnemies);  
+            }
+            // else if (spawnerScript.totalEnemies >= 10) {
+            //     Debug.Log("you win!!");
+            // }
         }
     }
 

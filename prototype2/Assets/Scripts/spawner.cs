@@ -14,6 +14,7 @@ public class spawner : MonoBehaviour
         // InvokeRepeating("SpawnEnemy", 2, 1);
         SpawnEnemy1();
         enemy1Dead = false;
+        totalEnemies = 3;
     }
 
     // Update is called once per frame
@@ -21,9 +22,14 @@ public class spawner : MonoBehaviour
     {
         // CountD -= Time.deltaTime;
         if (enemy1Dead == true) {
-            SpawnEnemy1();
-            totalEnemies++;
-            Debug.Log("enemies" + totalEnemies);
+            if (totalEnemies <= 9) {
+                SpawnEnemy1();
+                totalEnemies++;
+                Debug.Log("enemies" + totalEnemies);
+            }
+            // else if (totalEnemies >= 10) {
+            //     Debug.Log("you win!");
+            // }
         } 
     }
 

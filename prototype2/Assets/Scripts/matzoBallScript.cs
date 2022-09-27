@@ -8,52 +8,72 @@ public class matzoBallScript : MonoBehaviour
     public bool alphaZero;
 
     public Animator matzoBallAnimator;
+
+    public float killTime;
+
+    public float fadeSpeed;
+
     // Start is called before the first frame update
     void Start()
     {
         matzoHit = false;
         alphaZero = false;
 
-        matzoBallAnimator.SetBool("enemyHit", false);
-        matzoBallAnimator.SetBool("matzoDie", false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (matzoHit == true) {
-            //fade alpha
-            // matzoBallAnimator.SetBool("enemyHit", true);
-            matzoBallAnimator.SetBool("matzoDie", true);
-            matzoHit = false;
-        }
 
-        //if alpha becomes 0
-        //alphaZero is true
     }
 
     void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.tag == "enemy") {
             Destroy(collision.gameObject);
-            matzoBallAnimator.SetBool("enemyHit", true);
-            // matzoBallAnimator.SetBool("matzoDie", true);
+            matzoBallAnimator.SetTrigger("matzoFade");
             matzoHit = true;
+            StartCoroutine(killCountDown());
         }
         if (collision.gameObject.tag == "enemy2") {
             Destroy(collision.gameObject);
-            matzoBallAnimator.SetBool("enemyHit", true);
-            // matzoBallAnimator.SetBool("matzoDie", true);
+            matzoBallAnimator.SetTrigger("matzoFade");
             matzoHit = true;
+            StartCoroutine(killCountDown());
+
         }
         if (collision.gameObject.tag == "enemy3") {
             Destroy(collision.gameObject);
-            matzoBallAnimator.SetBool("enemyHit", true);
-            // matzoBallAnimator.SetBool("matzoDie", true);
+            matzoBallAnimator.SetTrigger("matzoFade");
             matzoHit = true;
+            StartCoroutine(killCountDown());
+
+        }
+        else {
+            StartCoroutine(FadeOutMaterial(1f));
         }
     }
 
-    private void OnBecameInvisible() {
+    void DestroyGameObject() {
        Destroy(gameObject);
+    }
+
+    private IEnumerator killCountDown() {
+        yield return new WaitForSeconds(killTime);
+        Destroy(gameObject);
+    }
+
+    IEnumerator FadeOutMaterial(float fadeSpeed) {
+        Renderer rend = GetComponent<Renderer>();
+        Color matColor = rend.material.color;
+        float alphaValue = rend.material.color.a;
+
+        while (rend.material.color.a > 0f)
+        {
+            alphaValue -= Time.deltaTime / fadeSpeed;
+            rend.material.color = new Color(matColor.r, matColor.g, matColor.b, alphaValue);
+            yield return null;
+        }
+        rend.material.color = new Color(matColor.r, matColor.g, matColor.b, 0f);
+        StartCoroutine(killCountDown());
     }
 }

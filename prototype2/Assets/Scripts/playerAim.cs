@@ -13,14 +13,17 @@ public class playerAim : MonoBehaviour
     public bool enemy3Overlap;
     public bool enemy3Kill;
 
+    spawner spawnerScript;
     public GameObject objSpawner;
-    SpriteRenderer enemyRenderer;
+    // SpriteRenderer enemyRenderer;
 
+    spawner2 spawner2Script;
     public GameObject objSpawner2;
-    SpriteRenderer enemyRenderer2;
+    // SpriteRenderer enemyRenderer2;
 
+    spawner3 spawner3Script;
     public GameObject objSpawner3;
-    SpriteRenderer enemyRenderer3;
+    // SpriteRenderer enemyRenderer3;
     
     public GameObject matzoBall;
 
@@ -36,9 +39,12 @@ public class playerAim : MonoBehaviour
        enemy3Overlap = false;
        enemy3Kill = false;
 
-       objSpawner.GetComponent<SpriteRenderer>();
-       objSpawner2.GetComponent<SpriteRenderer>();
-       objSpawner3.GetComponent<SpriteRenderer>();
+    //    objSpawner.GetComponent<SpriteRenderer>();
+    //    objSpawner2.GetComponent<SpriteRenderer>();
+    //    objSpawner3.GetComponent<SpriteRenderer>();
+       spawnerScript = objSpawner.GetComponent<spawner>();
+       spawner2Script = objSpawner2.GetComponent<spawner2>();
+       spawner3Script = objSpawner3.GetComponent<spawner3>();
 
     }
 
@@ -50,23 +56,25 @@ public class playerAim : MonoBehaviour
                Debug.Log("pressed"); 
                 // enemyKill = true;
                 SpawnMatzo();
+                StartCoroutine(enemy1DeadCountDown());
             }
             if (enemy2Overlap == true) {
                 Debug.Log("pressed 2");
                 // enemy2Kill = true;
                 SpawnMatzo();
+                StartCoroutine(enemy2DeadCountDown());
             }
             if (enemy3Overlap == true) {
                 Debug.Log("pressed3");
                 // enemy3Kill = true;
                 SpawnMatzo();
+                StartCoroutine(enemy3DeadCountDown());
             }
         }
     }
 
     public void SpawnMatzo() {
         Instantiate(matzoBall, transform.position, Quaternion.identity);
-        
     }
 
     void OnTriggerEnter2D(Collider2D collision) {
@@ -88,9 +96,23 @@ public class playerAim : MonoBehaviour
             else {
                 enemy3Overlap = false;
             }
-
-
     }
+
+    private IEnumerator enemy1DeadCountDown() {
+        yield return new WaitForSeconds(5f);
+        spawnerScript.enemy1Dead = true;
+    }
+
+    private IEnumerator enemy2DeadCountDown() {
+        yield return new WaitForSeconds(5f);
+        spawner2Script.enemy2Dead = true;
+    }
+
+    private IEnumerator enemy3DeadCountDown() {
+        yield return new WaitForSeconds(5f);
+        spawner3Script.enemy3Dead = true;
+    }
+
 
     // void OnTriggerEnter2D(Collider2D collision) {
     //     if (collision.gameObject.tag == "enemy") {
