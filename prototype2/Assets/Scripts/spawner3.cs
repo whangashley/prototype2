@@ -36,7 +36,7 @@ public class spawner3 : MonoBehaviour
 
     Vector2 GetSpawnPoint3() {
         float x = Random.Range(3f, 5f);
-        float y = Random.Range(1f, 4f);
+        float y = Random.Range(2f, 4f);
 
         return new Vector2(x, y);
     }

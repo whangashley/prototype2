@@ -31,6 +31,8 @@ public class playerAim : MonoBehaviour
     public Animator enemy2Animator;
     public Animator enemy3Animator;
 
+    public GameObject fireChatBubble;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,6 +52,7 @@ public class playerAim : MonoBehaviour
        spawner2Script = objSpawner2.GetComponent<spawner2>();
        spawner3Script = objSpawner3.GetComponent<spawner3>();
 
+        fireChatBubble.SetActive(false);
     }
 
     // Update is called once per frame
@@ -81,8 +84,15 @@ public class playerAim : MonoBehaviour
     }
 
     public void SpawnMatzo() {
+        fireChatBubble.SetActive(true);
         FindObjectOfType<audioManager>().Play("matzoThrow");
         Instantiate(matzoBall, transform.position, Quaternion.identity);
+        StartCoroutine(bubbleCountDown());
+    }
+
+    private IEnumerator bubbleCountDown() {
+        yield return new WaitForSeconds(1f);
+        fireChatBubble.SetActive(false);
     }
 
     void OnTriggerEnter2D(Collider2D collision) {
