@@ -9,12 +9,13 @@ public class enemy : MonoBehaviour
     private spawner SP; 
     private Collider2D checkCollider;
 
+    // public Animator enemyAnimator;
     // spawner spawnerScript;
     // public GameObject objSpawner;
 
     void Start() 
     {
-        SP = FindObjectOfType<spawner>();
+        // SP = FindObjectOfType<spawner>();
         // spawnerScript = objSpawner.GetComponent<spawner>();        
         
         // objSpawner = GameObject.FindWithTag("spawner");
