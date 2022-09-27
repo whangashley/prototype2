@@ -27,6 +27,10 @@ public class playerAim : MonoBehaviour
     
     public GameObject matzoBall;
 
+    public Animator enemy1Animator;
+    public Animator enemy2Animator;
+    public Animator enemy3Animator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,24 +60,28 @@ public class playerAim : MonoBehaviour
                Debug.Log("pressed"); 
                 // enemyKill = true;
                 SpawnMatzo();
+                enemy1Animator.SetTrigger("enemyIsHit");
                 StartCoroutine(enemy1DeadCountDown());
             }
             if (enemy2Overlap == true) {
                 Debug.Log("pressed 2");
                 // enemy2Kill = true;
                 SpawnMatzo();
+                enemy2Animator.SetTrigger("enemy2IsHit");
                 StartCoroutine(enemy2DeadCountDown());
             }
             if (enemy3Overlap == true) {
                 Debug.Log("pressed3");
                 // enemy3Kill = true;
                 SpawnMatzo();
+                enemy3Animator.SetTrigger("enemy3IsHit");
                 StartCoroutine(enemy3DeadCountDown());
             }
         }
     }
 
     public void SpawnMatzo() {
+        FindObjectOfType<audioManager>().Play("matzoThrow");
         Instantiate(matzoBall, transform.position, Quaternion.identity);
     }
 
